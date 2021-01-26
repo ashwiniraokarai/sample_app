@@ -73,3 +73,9 @@ p {
   color: #fff;
   text-decoration: none;
 }
+
+
+/* hide all images - currently that's the rails logo only*/
+img {
+  display: none;
+}
