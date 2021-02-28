@@ -6,7 +6,8 @@ class UserTest < ActiveSupport::TestCase
   # end
 
   def setup
-    @user = User.new(name: "Example User", email: "user@example.com")
+    @user = User.new(name: "Example User", email: "user@example.com", password: "example",
+                                                    password_confirmation: "example")
   end
 
   test "should be valid" do
@@ -51,14 +52,32 @@ class UserTest < ActiveSupport::TestCase
 
   test "email should be unique" do
     @duplicate_user = @user.dup
+     #save original user to db, then compare to duplicate user in memory
     @user.save
-    assert_not @duplicate_user.valid?
+    assert_not @duplicate_user.valid?, "#{@duplicate_user.email.inspect} should have been invalid"
   end
-
-  test "email with a different letter case should still violate uniqueness" do
-    @duplicate_user = @user.dup
-    @duplicate_user.email = @duplicate_user.email.upcase
+  
+  test "email saves as downcase" do
+    mixed_case_email = "THaT@EXaMpLE.cOM"
+    @user.email = mixed_case_email
     @user.save
-    assert_not @duplicate_user.valid?
+    #test passes w/o needing reload but it's wiser to include it to avoid flakes
+    assert_equal @user.reload.email, mixed_case_email.downcase
+  end
+  
+  test "password and confirmed password should be present" do
+    @user.password = @user.password_confirmation = ""
+    assert_not @user.valid?, "password `#{@user.password.inspect}` should have been invalid"
+  end
+  
+  test "password and confirmed password should not be too short" do
+    @user.password = @user.password_confirmation = "9a$$W"
+    assert_not @user.valid?, "password `#{@user.password.inspect}` should have been invalid"
+  end
+  
+   
+  test "password and confirmed password should not be blank" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?, "password `#{@user.password.inspect}` should have been invalid"
   end
 end
