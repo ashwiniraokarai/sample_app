@@ -8,8 +8,12 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # added by me later on
 gem 'bootstrap-sass', '3.4.1'
 gem 'bcrypt', '3.1.13'
+
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# moved under development and test environments because listing it here means it would universally apply to all environments,
+# including in production - which we don't want (heroku accepts pg, not sqlite)
+# gem 'sqlite3', '~> 1.4'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -32,6 +36,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
+  gem 'sqlite3', '~> 1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
