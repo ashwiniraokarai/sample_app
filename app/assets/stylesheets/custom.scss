@@ -5,6 +5,16 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+/* mixins, variables, etc. */
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+
 /* universal */
 
 body {
@@ -104,4 +114,15 @@ footer {
       margin-left: 15px;
     }
   }
+}
+
+/* debug info pulled in application layout - leverages box_sizing mixin declared in the beginning */
+
+.debug_dump {
+  clear: both;
+  float: none;
+  width: 70%;
+  margin-top: 45px;
+  margin-left: 260px;
+  @include box_sizing;
 }
