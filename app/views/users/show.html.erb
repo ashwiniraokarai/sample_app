@@ -1,6 +1,9 @@
-<h1>customized profile page to show after a user created</h1>
-<div>
+<% provide(:title, @user.name) %>
+<h1>
+  <%= gravatar_for @user, { size: 120 } %>
   <%= @user.name %>
+</h1>
+<div>
   <%= @user.created_at %>
   <%= @user.updated_at %>
 </div>

@@ -82,9 +82,10 @@ p {
   }
 }
 
-/* hide all images - currently that's the rails logo only*/
+/* hide all images*/
 img {
-  display: none;
+  //unhiding so gravatar on user page can show
+  // display: none;
 }
 
 
