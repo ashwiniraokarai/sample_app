@@ -1,7 +1,7 @@
 <%= provide(:title, 'Sign up')%>
 <h1>Sign up</h1>
 
-<%= form_with do |f| %>
+<%= form_with(model: @user) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   
