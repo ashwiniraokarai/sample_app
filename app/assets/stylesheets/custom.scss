@@ -140,3 +140,19 @@ input {
   height: auto !important;
 }
 
+#error_explanation {
+  color: red;
+}
+
+/* 
+After an invalid submission Rails automatically wraps the fields with errors in divs with the CSS class field_with_errors.
+Leverage this rule to additionally use Sass’s @extend function to include the functionality of the Bootstrap class has-error.
+CSS class form-control has special meaning to Bootstrap
+*/
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
