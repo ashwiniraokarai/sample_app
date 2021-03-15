@@ -42,6 +42,8 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  # a bunch of tests for validations built on the model
+  
   test "invalid email formats should be rejected" do
     emails = %w[ash ash2example ash.examplecom ash@exmple2.c0m ash@ex..com]
     emails.each do |email|
