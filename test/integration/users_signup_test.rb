@@ -41,7 +41,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                         password: "lame",
                                         password_confirmation: "male"} }
     
-    assert_template  "users/new"
+    assert_template "users/new"
     assert_select "div.alert", {count: 1, text: "Oops, there were errors on this page. 4 errors to be exact:" }
     assert_select "div.alert-danger"
   end
@@ -71,5 +71,46 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     
     assert_select "div.field_with_errors"
   end
-
+  
+  
+  #goal: test successful user sign-up
+  test "User count increases by 1 upon successful signup" do
+    get signup_path
+    
+    assert_difference "User.count", 1 do
+      
+      post users_path, params: { user: {  name: "Michael Hartl",
+                                          email: "example@railstutorial.org",
+                                          password: "password",
+                                          password_confirmation: "password"} }
+                                       
+    end
+  end
+  
+  test "Show page or user profile page shows upon successful signup" do
+    get signup_path
+    
+    post users_path, params: { user: {  name: "Michael Hartl",
+                                        email: "example@railstutorial.org",
+                                        password: "password",
+                                        password_confirmation: "password"} }
+                                     
+    
+    follow_redirect!
+    assert_template "users/show"
+  end
+  
+  test "success message (flash) shows in user profile page spun up on successful signup" do
+    get signup_path
+    
+    post users_path, params: { user: {  name: "Michael Hartl",
+                                        email: "example@railstutorial.org",
+                                        password: "password",
+                                        password_confirmation: "password"} }
+                                        
+    follow_redirect!
+    assert_template "users/show"
+    assert_not flash.empty?
+    assert_select "div.alert-success", {count: 1, text: "Welcome to the Sample App!"}
+  end
 end
