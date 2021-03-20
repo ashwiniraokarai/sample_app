@@ -1,0 +1,16 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      <%= "Oops, there were errors on this page. #{pluralize(@user.errors.count, "error")} to be exact:" %>
+    </div>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li>
+          <%= message %>
+        </li>
+      <% end %>
+    </ul>
+    <hr>  
+  </div>
+<% end %>
+
