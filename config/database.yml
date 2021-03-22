@@ -19,7 +19,19 @@ development:
 test:
   <<: *default
   database: db/test.sqlite3
+  
+  
+# commenting out original/ default code to replace with heroku recommended postgres configuration
+# production:
+#   <<: *default
+#   database: db/production.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: sample_app_production
+  username: sample_app
+  password: <%= ENV['SAMPLE_APP_DATABASE_PASSWORD'] %>
